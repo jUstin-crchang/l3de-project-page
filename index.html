@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>L3DE Project Page</title>
+<meta content="L3DE: Learned 3D Evaluation for AI-generated videos" name="description"/>
+<link href="https://rsms.me/" rel="preconnect"/>
+<link href="style.css" rel="stylesheet"/>
+<style>
+
+/* === Auto overrides: Application layout fixes === */
+#application .grid, 
+#application .grid-2, 
+#application .grid-3, 
+#application .cols, 
+#application .two-col, 
+#application .split, 
+#application .row, 
+#application .flex, 
+#application .app-grid, 
+#application .app-row {
+  display: block !important;
+}
+#application .app-item, 
+#application .application-item, 
+#application .app {
+  display: block !important;
+  width: 100% !important;
+  margin: 2rem 0 !important;
+}
+#application .text, 
+#application .desc, 
+#application .copy,
+#application .media, 
+#application .figure, 
+#application .img, 
+#application .image {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+}
+/* Third application: ensure not side-by-side */
+#application [id*='app3'], 
+#application [data-app='3'], 
+#application .app-3, 
+#application section:nth-of-type(3) {
+  display: block !important;
+}
+#application [id*='app3'] .text, 
+#application [data-app='3'] .text, 
+#application .app-3 .text {
+  margin-bottom: 1rem !important;
+}
+/* Align app3 and app4 figures */
+#application .app-figure img, 
+#application .app-image img, 
+#application [id*='app3'] img, 
+#application [id*='app4'] img {
+  width: 100% !important;
+  max-width: 880px !important;
+  height: auto !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+</style>
+</head>
+<body>
+<nav class="nav">
+<div class="container nav-inner">
+<img class="nav-logo-left" src="assets/logos/kling.png" alt="Kling Logo"/>
+<div class="brand">L3DE</div>
+<div class="links"><a href="#abstract">Abstract</a><a href="#results">Experiments</a><a href="#dataset">Dataset</a><a href="#applications">Applications</a><a href="#bibtex">BibTeX</a><a class="btn" href="assets/paper/paper.pdf">Paper (PDF)</a><a class="btn" href="assets/paper/supplement.pdf">Supp</a></div>
+</div>
+</nav>
+<header class="hero container">
+<div class="h-grid">
+<div class="hero-card">
+<h1>How Far are AI-generated Videos from Simulating the 3D Visual World: A Learned 3D Evaluation (L3DE)</h1>
+<div class="badges">
+<span class="badge">ICCV 2025</span>
+<span class="badge">2025</span>
+<span class="badge">Video Evaluation</span>
+<span class="badge">3D Coherence</span>
+</div>
+<div class="authors">Chirui Chang, Jiahui Liu, Zhengzhe Liu, Xiaoyang Lyu, Yi-Hua Huang, Xin Tao, Pengfei Wan, Di Zhang, Xiaojuan Qi</div>
+<div class="affils">The University of Hong Kong · Kling Team, Kuaishou Technology · Lingnan University</div>
+<div class="cta">
+<a class="btn" href="assets/paper/paper.pdf">📄 Paper</a>
+<a class="btn" href="assets/paper/supplement.pdf">📎 Supplement</a>
+<a class="btn" href="https://github.com/" target="_blank" rel="noopener"> <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16" style="vertical-align:-2px;"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.11 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.91.08 2.11.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> Code</a>
+</div>
+</div>
+<div class="teaser hero-card">
+<img alt="L3DE teaser" src="assets/teaser_new.png" style="width:100%;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15)"/>
+</div>
+</div>
+</header>
+<main>
+<section class="section" id="abstract">
+<div class="container grid-3">
+<div class="card abstract-card" style="grid-column:1 / -1">
+<h2>Abstract</h2>
+<p class="lead">
+        L3DE is a practical, interpretable metric for judging how well AI-generated videos simulate the 3D visual world.
+      </p>
+<ul class="keypoints">
+<li>Uses three monocular cues—<b>motion</b>, <b>geometry</b>, <b>appearance</b>—instead of brittle full 3D reconstruction.</li>
+<li>A lightweight <b>3D ConvNet</b> separates real vs. synthetic and outputs a calibrated <b>L3DE score</b>.</li>
+<li><b>Attribution maps</b> localize implausible regions (occlusion violations, texture inconsistencies, inconsistent dynamics).</li>
+<li><b>Correlates</b> with 3D reconstruction quality and <b>human judgments</b>; surfaces subtle inconsistencies in SOTA models.</li>
+<li><b>Label-free</b>, robust to diverse web videos, and easy to integrate.</li>
+<li><b>Versatile</b>: Supports deepfake detection, refinement-in-the-loop, generator benchmarking, and dataset filtering.</li>
+</ul>
+<div class="taglist">
+<span class="tag">Label-free</span>
+<span class="tag">3D Coherence</span>
+<span class="tag">Attribution Maps</span>
+<span class="tag">Web-scale</span>
+<span class="tag">Practical</span>
+</div>
+<details class="more">
+<summary>Why it matters</summary>
+<p>
+          L3DE quantifies the “simulation gap” in 3D coherence and pinpoints artifacts for targeted fixes, enabling more
+          reliable evaluation and practical debugging beyond conventional benchmarks.
+        </p>
+</details>
+<p class="note">See the paper and supplementary for full details.</p>
+</div>
+</div>
+</section>
+<section class="section" id="results">
+<div class="container">
+<div class="card" style="grid-column:1 / -1">
+<h2>Experimental Results</h2><div class="results-gallery">
+<div class="figure-card is-wide">
+<img alt="Fig. 4 – Localization &amp; Activation Alignment" src="assets/figs/figure4_exp_iccv_v3.png"/>
+<div class="fig-caption">
+<span class="fig-title">Localizing 3D inconsistencies with L3DE.</span>
+<span class="fig-desc">
+        For each case: (a) AI-generated, (b) 3D rendered, (c) pixel difference, (d) Grad‑CAM, (e) activation alignment.
+        High‑activation regions from L3DE overlap with large pixel errors, revealing inconsistencies in 3D reconstruction. Results demonstrates strong alignment between L3DE-
+        detected and rendering-inconsistent regions.
+      </span>
+</div>
+</div>
+<div class="figure-card is-square">
+<img alt="Fig. 5 – Correlation with Human Judgments" src="assets/figs/figure5_main_correlation.png"/>
+<div class="fig-caption">
+<span class="fig-title">Correlation with human judgments.</span>
+<span class="fig-desc">
+        Spearman correlation on 300 videos: Fusion <b>ρ≈0.65</b>, Appearance <b>ρ≈0.60</b>,
+        Motion <b>ρ≈0.48</b>, Geometry <b>ρ≈0.54</b>. Fusion performs best by integrating all cues.
+      </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="dataset">
+<div class="container">
+<div class="card" style="grid-column:1 / -1">
+<h2>Dataset Overview</h2>
+<p class="note" style="margin-top:6px">Our dataset comprises three parts: <b>Paired Real/Synthetic Video Set</b>, <b>3D Reconstruction Verification Set</b>, and <b>3D Visual Simulation Benchmark</b>.</p>
+<div class="table-wrap dataset-table">
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Synth/Real</th>
+<th>#Videos</th>
+<th>Clip</th>
+<th>Resolution</th>
+<th>FPS</th>
+<th>Prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="group"><td colspan="7"><b>Paired Real/Synthetic Video Set</b></td></tr>
+<tr><td>Pexels</td><td>Real</td><td>80,000</td><td>4s</td><td>Variable</td><td>Variable</td><td>—</td></tr>
+<tr><td>Stable Video Diffusion</td><td>Synth</td><td>80,000</td><td>4s</td><td>1024×576</td><td>7</td><td>I2V</td></tr>
+<tr class="group"><td colspan="7"><b>3D Reconstruction Verification Set</b></td></tr>
+<tr><td>Kling 1.5</td><td>Synth</td><td>3,000</td><td>5s</td><td>Variable</td><td>30</td><td>I2V &amp; T2V</td></tr>
+<tr class="group"><td colspan="7"><b>3D Visual Simulation Benchmark</b></td></tr>
+<tr><td>Pexels</td><td>Real</td><td>14,000</td><td>4s</td><td>Variable</td><td>Variable</td><td>—</td></tr>
+<tr><td>Runway-Gen3</td><td>Synth</td><td>539</td><td>5s</td><td>1280×768</td><td>24</td><td>I2V &amp; T2V</td></tr>
+<tr><td>MiniMax</td><td>Synth</td><td>539</td><td>5s</td><td>1280×720</td><td>25</td><td>I2V &amp; T2V</td></tr>
+<tr><td>Vidu</td><td>Synth</td><td>539</td><td>3s</td><td>Variable</td><td>24</td><td>I2V &amp; T2V</td></tr>
+<tr><td>Luma Dream Machine 1.6</td><td>Synth</td><td>539</td><td>Variable</td><td>Variable</td><td>24</td><td>I2V &amp; T2V</td></tr>
+<tr><td>Kling 1.5</td><td>Synth</td><td>539</td><td>5s</td><td>Variable</td><td>30</td><td>I2V &amp; T2V</td></tr>
+<tr><td>CogVideoX-5B</td><td>Synth</td><td>539</td><td>6s</td><td>720×480</td><td>8</td><td>I2V &amp; T2V</td></tr>
+<tr><td>Sora</td><td>Synth</td><td>539</td><td>5s</td><td>Variable</td><td>30</td><td>I2V &amp; T2V</td></tr>
+<tr><td>Kling 2.1</td><td>Synth</td><td>539</td><td>5s</td><td>Variable</td><td>30</td><td>I2V &amp; T2V</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="applications">
+<div class="container">
+<div class="card" style="grid-column:1 / -1">
+<h2>Applications</h2>
+<div class="app-block app-full">
+<h3 class="app-title">1) Benchmarking Video Generation Models</h3>
+<p class="app-lead">L3DE ranks video generation models by overall 3D visual coherence (<b>Fusion</b>) and reports per-aspect scores.</p>
+<div class="table-wrap centered bench-table dense">
+<table>
+<thead><tr><th>Generators</th><th>Fusion</th><th>Appearance</th><th>Motion</th><th>Geometry</th></tr></thead>
+<tbody>
+<tr><td>Runway-Gen3</td><td>0.7162</td><td>0.6946</td><td>0.5768</td><td>0.6739</td></tr>
+<tr><td>MiniMax</td><td>0.7932</td><td>0.7714</td><td>0.6098</td><td>0.7251</td></tr>
+<tr><td>Vidu</td><td>0.7052</td><td>0.6406</td><td>0.6228</td><td><u>0.7615</u></td></tr>
+<tr><td>Luma 1.6</td><td>0.5062</td><td>0.4950</td><td>0.5853</td><td>0.6800</td></tr>
+<tr><td>Kling 1.5</td><td>0.7518</td><td>0.7247</td><td>0.5926</td><td>0.6927</td></tr>
+<tr><td>CogVideoX-5B</td><td>0.6104</td><td>0.5893</td><td>0.6203</td><td>0.7539</td></tr>
+<tr><td>Sora</td><td><u>0.8895</u></td><td><b>0.8394</b></td><td><u>0.6467</u></td><td>0.7458</td></tr>
+<tr><td>Kling 2.1</td><td><b>0.8904</b></td><td><u>0.8129</u></td><td><b>0.6735</b></td><td><b>0.7623</b></td></tr>
+<tr class="sep"><td>Real Videos</td><td>0.9999</td><td>0.9950</td><td>0.8321</td><td>0.8435</td></tr>
+</tbody>
+</table>
+<div class="caption">Fusion is the primary ranking signal; real videos provide an empirical upper bound.</div>
+</div>
+</div>
+
+<!-- Application compact grid for 1) Benchmark and 3) Video Refinement -->
+<div class="app-compact-grid">
+<div class="app-compact-col">
+
+</div>
+<div class="app-compact-col">
+        
+        </div>
+</div>
+<div class="app-block">
+<h3 class="app-title">2) Fake Video Detection</h3>
+<p class="app-lead">Classify videos as real or synthetic by thresholding L3DE scores; compare with image-based detectors.</p>
+<div class="table-wrap fvd-table dense">
+<table>
+<thead>
+<tr>
+<th>Method</th><th>Input</th><th>MiniMax</th><th>Kling 1.5</th><th>Runway-Gen3</th><th>Luma</th><th>CogVideoX</th><th>Vidu</th><th>Sora</th><th>Average</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>CNNDetection</td><td>Image</td><td>49.92</td><td>50.02</td><td>50.00</td><td>50.45</td><td>50.07</td><td>50.00</td><td>49.91</td><td>50.05</td></tr>
+<tr><td>DIRE</td><td>Image</td><td>50.00</td><td>50.00</td><td>50.00</td><td>50.00</td><td>50.00</td><td>50.00</td><td>50.00</td><td>50.00</td></tr>
+<tr><td>NPR</td><td>Image</td><td>60.19</td><td>67.91</td><td>64.99</td><td>54.06</td><td>35.79</td><td>36.04</td><td><b>60.82</b></td><td>54.25</td></tr>
+<tr class="sep"><td><b>L3DE</b></td><td><b>Video</b></td><td><b>66.51</b></td><td><b>82.52</b></td><td><b>72.19</b></td><td><b>83.38</b></td><td><b>76.73</b></td><td><b>70.01</b></td><td>56.31</td><td><b>73.14</b></td></tr>
+</tbody>
+</table>
+<div class="caption">Accuracy (%) on our fake video detection benchmark.</div>
+</div>
+</div>
+<div class="app-block">
+<h3 class="app-title">3) Video Refinement</h3>
+<p>L3DE Grad‑CAM localizes artifact regions. We propagate masks (e.g., SAM‑2) across frames and apply 3D‑consistent inpainting (e.g., LaMa in a 3D‑GS loop) to remove artifacts while preserving content.</p>
+
+<div class="gradcam-static" data-interval="3500" id="gradcam-static-refinement">
+<div>
+<figure class="app-figure"><img alt="Refinement guided by L3DE" src="assets/figs/app_refinement.png"/><figcaption>Example of refinement guided by L3DE activations.</figcaption></figure>
+</div>
+</div>
+
+</div>
+<div class="app-block">
+<h3 class="app-title">4) More Visualization with Grad‑CAM</h3>
+<p class="app-lead">L3DE identifies inconsistencies in generative videos, such as texture artifacts, implausible dynamics, and occlusion errors, across multiple aspects.</p>
+<div class="gradcam-carousel" data-interval="3500" id="gradcam-carousel">
+<div class="carousel-track">
+<figure class="app-figure carousel-slide active">
+<img alt="Appearance Grad-CAM" src="assets/figs/app_gradcam_appearance.png"/>
+<figcaption>Appearance</figcaption>
+</figure>
+<figure class="app-figure carousel-slide">
+<img alt="Motion Grad-CAM" src="assets/figs/app_gradcam_motion.png"/>
+<figcaption>Motion</figcaption>
+</figure>
+<figure class="app-figure carousel-slide">
+<img alt="Geometry Grad-CAM" src="assets/figs/app_gradcam_geometry.png"/>
+<figcaption>Geometry</figcaption>
+</figure>
+</div>
+<button aria-label="Previous slide" class="carousel-btn prev" title="Previous">❮</button>
+<button aria-label="Next slide" class="carousel-btn next" title="Next">❯</button>
+<div aria-label="Slide indicators" class="carousel-dots"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- <section class="section" id="bibtex">
+<div class="container">
+<h2>BibTeX</h2>
+<pre class="code">@inproceedings{Chang2025L3DE,
+  title     = {How Far are AI-generated Videos from Simulating the 3D Visual World: A Learned 3D Evaluation},
+  author    = {Chirui Chang and Jiahui Liu and Zhengzhe Liu and Xiaoyang Lyu and Yi-Hua Huang and Xin Tao and Pengfei Wan and Di Zhang and Xiaojuan Qi*},
+  booktitle = {ICCV 2025},
+  year      = {2025}
+}</pre>
+</div>
+</section> -->
+</main>
+<div class="lightbox" onclick="closeLightbox()">
+<div class="close-btn" onclick="closeLightbox()">✕ Close</div>
+<div class="lightbox-inner"></div>
+</div>
+<script src="script.js"></script>
+<script>
+// Lightweight carousel (autoplay + buttons + dots)
+(function(){
+  const carousels = document.querySelectorAll('.carousel');
+  carousels.forEach(c => {
+    const track = c.querySelector('.track');
+    const slides = Array.from(c.querySelectorAll('.slide'));
+    const dotsWrap = c.querySelector('.dots');
+    let idx = 0, timer = null;
+    // Build dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (i===0 ? ' active' : '');
+      dot.addEventListener('click', ()=>go(i,true));
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+    function go(n, user=false){
+      idx = (n + slides.length) % slides.length;
+      track.style.transform = 'translateX(' + (-idx*100) + '%)';
+      dots.forEach((d,i)=>d.classList.toggle('active', i===idx));
+      if(user) restart();
+    }
+    function next(){ go(idx+1); }
+    function prev(){ go(idx-1); }
+    c.querySelector('.next').addEventListener('click', ()=>go(idx+1,true));
+    c.querySelector('.prev').addEventListener('click', ()=>go(idx-1,true));
+    function restart(){
+      if(timer) clearInterval(timer);
+      if(c.dataset.autoplay === 'true'){
+        timer = setInterval(next, parseInt(c.dataset.interval || '3500', 10));
+      }
+    }
+    restart();
+    c.addEventListener('mouseenter', ()=>timer && clearInterval(timer));
+    c.addEventListener('mouseleave', restart);
+    // Swipe support
+    let sx=0, dx=0;
+    c.addEventListener('touchstart', e=>{ sx = e.touches[0].clientX; });
+    c.addEventListener('touchmove', e=>{ dx = e.touches[0].clientX - sx; });
+    c.addEventListener('touchend', ()=>{ if(Math.abs(dx)>40){ dx<0? next():prev(); } dx=0; });
+  });
+})();
+</script>
+<script>
+(function(){
+  const c = document.querySelector('#applications .carousel');
+  if(!c) return;
+  const viewport = c.querySelector('.viewport');
+  const track = c.querySelector('.track');
+  const slides = Array.from(c.querySelectorAll('.slide'));
+  const dotsWrap = c.querySelector('.dots');
+  const prev = c.querySelector('.prev');
+  const next = c.querySelector('.next');
+  // Build dots
+  dotsWrap.innerHTML = '';
+  slides.forEach((_, i)=>{
+    const d = document.createElement('button');
+    d.className = 'dot' + (i===0?' active':'');
+    d.addEventListener('click', ()=>go(i,true));
+    dotsWrap.appendChild(d);
+  });
+  const dots = Array.from(dotsWrap.children);
+  let idx = 0, timer=null, interval=3500;
+  function apply(){ track.style.transform = 'translateX(' + (-idx*100) + '%)'; dots.forEach((d,i)=>d.classList.toggle('active', i===idx)); }
+  function go(i, user=false){ idx = (i+slides.length)%slides.length; apply(); if(user) restart(); }
+  function nextFn(){ go(idx+1); }
+  function prevFn(){ go(idx-1); }
+  prev.addEventListener('click', ()=>go(idx-1,true));
+  next.addEventListener('click', ()=>go(idx+1,true));
+  function restart(){ if(timer) clearInterval(timer); timer=setInterval(nextFn, interval); }
+  // When JS is active, remove CSS animation to avoid conflict
+  track.style.animation = 'none';
+  restart();
+  c.addEventListener('mouseenter', ()=>timer && clearInterval(timer));
+  c.addEventListener('mouseleave', restart);
+  // touch swipe
+  let sx=0, dx=0;
+  viewport.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; });
+  viewport.addEventListener('touchmove', e=>{ dx=e.touches[0].clientX - sx; });
+  viewport.addEventListener('touchend', ()=>{ if(Math.abs(dx)>40){ dx<0? nextFn():prevFn(); } dx=0; });
+})();
+</script>
+<script>
+(function(){
+  const root = document.querySelector('#gradcam-carousel .carousel');
+  if(!root) return;
+  const viewport = root.querySelector('.viewport');
+  const track = root.querySelector('.track');
+  const slides = Array.from(root.querySelectorAll('.slide'));
+  const prev = root.querySelector('.prev');
+  const next = root.querySelector('.next');
+  const dotsWrap = root.querySelector('.dots');
+  let idx = 0, timer = null, interval = 3500;
+  // Build dots
+  dotsWrap.innerHTML = '';
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i===0 ? ' active' : '');
+    d.addEventListener('click', ()=>go(i,true));
+    dotsWrap.appendChild(d);
+  });
+  const dots = Array.from(dotsWrap.children);
+  function apply(){
+    track.style.transform = 'translateX(' + (-idx*100) + '%)';
+    dots.forEach((d,i)=>d.classList.toggle('active', i===idx));
+  }
+  function go(n, user=false){
+    idx = (n + slides.length) % slides.length;
+    apply();
+    if(user) restart();
+  }
+  function nextFn(){ go(idx+1); }
+  function prevFn(){ go(idx-1); }
+  prev.addEventListener('click', ()=>go(idx-1,true));
+  next.addEventListener('click', ()=>go(idx+1,true));
+  function restart(){ if(timer) clearInterval(timer); timer = setInterval(nextFn, interval); }
+  // Disable CSS animation once JS is active to avoid conflicts
+  track.style.animation = 'none';
+  apply();
+  restart();
+  root.addEventListener('mouseenter', ()=>timer && clearInterval(timer));
+  root.addEventListener('mouseleave', restart);
+  // Touch swipe
+  let sx=0, dx=0;
+  viewport.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; });
+  viewport.addEventListener('touchmove', e=>{ dx=e.touches[0].clientX - sx; });
+  viewport.addEventListener('touchend', ()=>{ if(Math.abs(dx)>40){ dx<0? nextFn():prevFn(); } dx=0; });
+})();
+</script>
+</body>
+</html>

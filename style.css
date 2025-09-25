@@ -1,0 +1,841 @@
+
+:root{
+  --bg: #0b0b10;
+  --ink: #e7e9ee;
+  --muted: #9aa3b2;
+  --brand: #7aa8ff;
+  --card: #131522;
+  --chip: #1a1d2e;
+  --accent: #74e3c9;
+  --border: #23263a;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+.nav{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(11,11,16,.95), rgba(11,11,16,.75) 60%, transparent);backdrop-filter: blur(6px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;gap:18px;align-items:center;justify-content:space-between;padding:14px 0}
+.brand{font-weight:700;letter-spacing:.2px}
+.nav a{color:var(--ink);opacity:.9}
+.nav .links{display:flex;gap:18px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);padding:10px 14px;border-radius:12px;background:var(--chip);color:var(--ink);box-shadow:var(--shadow)}
+.btn:hover{transform:translateY(-1px)}
+.hero{padding:60px 0 30px}
+.h-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:26px}
+@media(max-width:960px){.h-grid{grid-template-columns:1fr;}}
+.hero-card{background:var(--card);border:1px solid var(--border);padding:18px;border-radius:18px;box-shadow:var(--shadow)}
+.hero h1{font-size:32px;line-height:1.2;margin:6px 0 10px}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 18px}
+.badge{padding:6px 10px;border-radius:999px;background:var(--chip);border:1px solid var(--border);font-size:12px;color:var(--muted)}
+.authors{display:flex;flex-wrap:wrap;gap:8px;color:var(--muted)}
+.affils{margin-top:6px;color:var(--muted);font-size:14px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.teaser{overflow:hidden;border-radius:16px;border:1px solid var(--border);background:black;display:flex;align-items:center;justify-content:center;min-height:260px}
+.section{padding:32px 0;border-top:1px solid var(--border)}
+.section h2{font-size:22px;margin:0 0 12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:960px){.grid-3{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.grid-3{grid-template-columns:1fr}}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:1024px){.gallery{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){.gallery{grid-template-columns:repeat(2,1fr)}}
+.thumb{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--border);cursor:pointer;background:#000}
+.thumb img, .thumb video{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .play{position:absolute;inset:auto auto 8px 8px;background:rgba(0,0,0,.55);padding:6px 8px;border-radius:8px;font-size:12px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kv .k{color:var(--muted)}
+.taglist{display:flex;gap:8px;flex-wrap:wrap}
+.tag{background:var(--chip);border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:12px}
+pre.code{background:#0d0f18;border:1px solid var(--border);padding:12px;border-radius:12px;overflow:auto}
+.footer{padding:20px 0 40px;color:var(--muted);text-align:center}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
+.lightbox.open{display:flex}
+.lightbox-inner{max-width:1100px;width:100%}
+.lightbox media{width:100%}
+.close-btn{position:absolute;top:12px;right:18px;background:var(--chip);border:1px solid var(--border);padding:8px 10px;border-radius:10px;cursor:pointer}
+.note{color:var(--muted);font-size:13px}
+
+
+/* === L3DE full-bleed header patch (2025-09-25) === */
+
+/* Make header grid a single column so title & teaser stack and can each be full-width */
+.hero .h-grid {
+  grid-template-columns: 1fr;
+}
+
+/* Let each hero-card span full width with a standard full-bleed technique */
+.hero .hero-card {
+  grid-column: 1 / -1;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-radius: 0;
+  box-shadow: none;
+  border-left: 0;
+  border-right: 0;
+}
+
+/* Teaser card cleanup */
+.hero .teaser.hero-card {
+  padding: 0;
+  border: 0;
+}
+
+/* Teaser image should truly fill width; override any inline styles */
+.hero .teaser img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Optional: adjust header vertical spacing */
+.hero {
+  padding: 40px 0 24px;
+}
+
+
+
+/* === L3DE Abstract full-bleed patch (2025-09-25) === */
+
+/* Make ONLY the first Abstract card full-width (safe if later cards exist) */
+#abstract .card:first-child {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-radius: 0;
+  box-shadow: none;
+  border-left: 0;
+  border-right: 0;
+}
+
+/* Remove horizontal gaps around it to keep edges flush */
+#abstract .grid-3 { gap: 0; }
+
+/* Optional: adjust internal spacing for readability */
+#abstract .card:first-child h2 { margin: 0 0 8px; }
+#abstract .card:first-child p { margin: 6px 0 0; }
+
+
+
+/* === Rollback: hero back to container-width like Abstract (2025-09-25) === */
+.hero .h-grid {
+  grid-template-columns: 1.1fr .9fr !important;
+}
+.hero .hero-card {
+  width: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-radius: 18px !important;
+  box-shadow: var(--shadow) !important;
+  border: 1px solid var(--border) !important;
+  padding: 18px !important;
+}
+.hero .teaser.hero-card {
+  padding: 18px !important;
+  border: 1px solid var(--border) !important;
+}
+.hero .teaser img {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+.hero {
+  padding: 60px 0 30px !important;
+}
+
+
+
+/* === Rollback: Abstract back to container width (2025-09-25) === */
+#abstract .card:first-child {
+  width: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-radius: 18px !important;
+  box-shadow: var(--shadow) !important;
+  border: 1px solid var(--border) !important;
+  padding: 18px !important;
+}
+/* Restore standard gap in the abstract grid */
+#abstract .grid-3 {
+  gap: 26px !important; /* match .h-grid gap for visual balance; adjust if you have a different .grid-3 rule */
+}
+
+
+
+/* ===== Abstract readability polish (2025-09-25) ===== */
+.abstract-card {
+  position: relative;
+  border-left: 4px solid var(--accent, #6aa1ff);
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
+}
+
+.abstract-card .lead {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 4px 0 10px;
+}
+
+.abstract-card .keypoints {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+@media (min-width: 900px) {
+  .abstract-card .keypoints { grid-template-columns: 1fr 1fr; }
+}
+
+.abstract-card .keypoints li {
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.55;
+}
+.abstract-card .keypoints li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(2px);
+  opacity: 0.7;
+}
+
+.abstract-card .taglist { margin: 6px 0 10px; }
+.abstract-card .tag { background: var(--chip, rgba(0,0,0,0.04)); }
+
+.abstract-card details.more {
+  margin-top: 6px;
+  border-top: 1px dashed var(--border);
+  padding-top: 8px;
+}
+.abstract-card details.more summary {
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+
+
+/* ===== Dataset Overview table (2025-09-25) ===== */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+}
+
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table-wrap thead th {
+  position: sticky;
+  top: 0;
+  background: rgba(0,0,0,0.03);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  padding: 10px 12px;
+  white-space: nowrap;
+}
+
+.table-wrap tbody td {
+  border-top: 1px solid var(--border);
+  padding: 10px 12px;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.table-wrap tbody tr.group td {
+  background: rgba(0,0,0,0.04);
+  border-top: 1px solid var(--border);
+  padding: 12px 12px;
+  white-space: normal;
+}
+
+.table-wrap .caption {
+  font-size: 12px;
+  color: var(--muted);
+  padding: 10px 12px 12px;
+  border-top: 1px dashed var(--border);
+}
+
+@media (max-width: 900px) {
+  .table-wrap table { font-size: 13px; }
+  .table-wrap thead th, .table-wrap tbody td { padding: 8px 10px; }
+}
+
+
+
+/* ===== Global font override (Times New Roman) — 2025-09-25 ===== */
+body, html, .card, .btn, .nav, h1, h2, h3, h4, h5, h6, p, li, table, .tag, .authors, .affils {
+  font-family: "Times New Roman", Times, serif !important;
+  letter-spacing: 0;
+}
+
+
+
+/* ===== Dataset table compact mode — 2025-09-25 ===== */
+.dataset-table.table-wrap {
+  border-radius: 10px;
+}
+.dataset-table table { 
+  font-size: 13px; 
+}
+.dataset-table thead th, 
+.dataset-table tbody td {
+  padding: 6px 8px;
+  line-height: 1.25;
+}
+.dataset-table tbody tr.group td {
+  padding: 8px 8px;
+  background: rgba(0,0,0,0.03);
+  font-weight: 600;
+}
+.dataset-table .caption {
+  font-size: 11px;
+  padding: 8px 10px 10px;
+}
+/* Make the surrounding card slightly tighter when it only contains the table */
+#dataset .card {
+  padding: 14px;
+}
+#dataset .card h2 {
+  margin-bottom: 6px;
+}
+#dataset .note {
+  margin: 4px 0 8px !important;
+}
+
+
+
+/* ===== Results figures layout (Fig.4 & Fig.5) — 2025-09-25 ===== */
+.results-lead {
+  font-size: 1rem;
+  line-height: 1.55;
+  margin: 8px 0 12px;
+}
+.results-figs {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.figure-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card);
+}
+.figure-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.figure-card.wide { align-self: stretch; }
+.figure-card.square { align-self: start; }
+.fig-caption {
+  padding: 10px 12px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.fig-caption .fig-label { font-weight: 700; margin-right: 6px; }
+.fig-caption .fig-title { font-weight: 700; }
+.fig-caption .fig-desc { display: block; margin-top: 4px; color: var(--muted); }
+
+@media (max-width: 950px) {
+  .results-figs { grid-template-columns: 1fr; }
+  .figure-card.square { order: 2; }
+}
+
+
+
+/* ===== Results block fix — keep within container/card and align headings (2025-09-25) ===== */
+.results-block.card {
+  margin-top: 8px;
+  padding: 14px;
+}
+.results-figs {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-top: 8px;
+}
+.figure-card { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--card); }
+.figure-card img { width: 100%; height: auto; display: block; }
+.fig-caption { padding: 8px 10px 10px; font-size: 13px; line-height: 1.45; }
+.fig-caption .fig-label { font-weight: 700; margin-right: 6px; }
+.fig-caption .fig-title { font-weight: 700; }
+.fig-caption .fig-desc { display: block; margin-top: 2px; color: var(--muted); }
+
+/* Keep section heading above; we injected content after the <h2> */
+#results h2 { margin-bottom: 8px; }
+
+/* Mobile */
+@media (max-width: 950px) {
+  .results-figs { grid-template-columns: 1fr; gap: 12px; }
+}
+
+
+
+
+
+
+
+/* ===== Results gallery layout — keep within container; aspect-aware (2025-09-25) ===== */
+.results-gallery {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr; /* wide left, square right */
+  gap: 16px;
+  margin-top: 10px;
+}
+.figure-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.figure-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* captions pinned to bottom with consistent padding */
+.fig-caption {
+  padding: 8px 12px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.fig-caption .fig-label { font-weight: 700; margin-right: 6px; }
+.fig-caption .fig-title { font-weight: 700; }
+.fig-caption .fig-desc  { display: block; margin-top: 3px; color: var(--muted); }
+
+/* Optional visual balance: ensure right card height doesn't look tiny compared to the left */
+.figure-card.is-square { align-self: start; }
+.figure-card.is-wide   { align-self: stretch; }
+
+@media (max-width: 980px) {
+  .results-gallery { grid-template-columns: 1fr; }
+  .figure-card.is-square { order: 2; }
+}
+
+
+
+/* ===== Applications section (2025-09-25) ===== */
+#applications .app-block { margin-top: 14px; }
+#applications .app-title { font-size: 18px; margin: 6px 0 8px; }
+#applications .app-lead { margin: 0 0 8px; line-height: 1.55; }
+#applications .app-grid { display: grid; gap: 14px; align-items: start; }
+#applications .app-grid.two { grid-template-columns: 1fr 1.15fr; }
+#applications .app-grid.three { grid-template-columns: repeat(3, 1fr); }
+#applications .app-figure { margin: 0; border: 1px solid var(--border); border-radius: 12px; background: var(--card); overflow: hidden; }
+#applications .app-figure img { display: block; width: 100%; height: auto; }
+#applications .app-figure figcaption { padding: 8px 10px 10px; font-size: 13px; color: var(--muted); }
+
+#applications .table-wrap { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--card); }
+#applications table { width: 100%; border-collapse: collapse; font-size: 13px; }
+#applications thead th { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.03); }
+#applications tbody td { padding: 8px 10px; border-top: 1px solid var(--border); white-space: nowrap; }
+#applications tbody tr.sep td { border-top: 2px solid var(--border); }
+#applications .caption { font-size: 12px; color: var(--muted); padding: 8px 10px 10px; border-top: 1px dashed var(--border); }
+
+@media (max-width: 1100px) {
+  #applications .app-grid.two { grid-template-columns: 1fr; }
+  #applications .app-grid.three { grid-template-columns: 1fr; }
+}
+
+
+
+/* ===== Applications: dense layout + carousel (2025-09-25) ===== */
+/* Denser spacing in app section */
+#applications .app-block { margin-top: 10px; }
+#applications .app-title { margin: 4px 0 6px; }
+#applications .app-lead { margin: 0 0 6px; }
+
+/* Tighter tables */
+#applications .table-wrap.dense table { font-size: 12.5px; }
+#applications .table-wrap.dense thead th,
+#applications .table-wrap.dense tbody td { padding: 6px 8px; line-height: 1.2; }
+#applications .table-wrap.dense .caption { font-size: 11px; padding: 6px 8px 8px; }
+
+/* Make first column wider and numbers tighter */
+#applications .bench-table td:first-child,
+#applications .fvd-table td:first-child { max-width: 180px; white-space: nowrap; }
+#applications .bench-table td:not(:first-child),
+#applications .bench-table th:not(:first-child),
+#applications .fvd-table td:not(:first-child),
+#applications .fvd-table th:not(:first-child) { text-align: right; }
+
+/* Refinement grid tighter */
+#applications .app-grid.tight { gap: 10px; }
+#applications .app-grid.tight .app-text p { margin: 0; }
+#applications .app-figure figcaption { font-size: 12px; padding: 6px 8px 8px; }
+
+/* Carousel styles */
+.carousel { position: relative; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--card); }
+.carousel .track { display: flex; width: 300%; transition: transform 450ms ease; }
+.carousel .slide { flex: 0 0 100%; }
+.carousel .slide img { width: 100%; height: auto; display: block; }
+.carousel .nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.35); color: #fff; border: 0; width: 28px; height: 28px; border-radius: 999px; cursor: pointer; }
+.carousel .nav.prev { left: 8px; }
+.carousel .nav.next { right: 8px; }
+.carousel .dots { position: absolute; left: 0; right: 0; bottom: 6px; text-align: center; }
+.carousel .dot { width: 8px; height: 8px; border-radius: 50%; border: 0; margin: 0 3px; background: rgba(0,0,0,0.3); cursor: pointer; }
+.carousel .dot.active { background: rgba(0,0,0,0.75); }
+@media (max-width: 1100px) {
+  #applications .bench-table td:first-child, #applications .fvd-table td:first-child { max-width: 100%; }
+}
+
+
+
+/* ===== Robust Carousel (CSS+JS) — 2025-09-25 ===== */
+.carousel { position: relative; border: 1px solid var(--border); border-radius: 12px; background: var(--card); overflow: hidden; }
+.carousel .viewport { width: 100%; overflow: hidden; }
+.carousel .track { display: flex; width: 300%; }
+.carousel .slide { flex: 0 0 100%; }
+.carousel .slide img { width: 100%; height: auto; display: block; }
+.carousel .nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.35); color: #fff; border: 0; width: 28px; height: 28px; border-radius: 999px; cursor: pointer; }
+.carousel .nav.prev { left: 8px; }
+.carousel .nav.next { right: 8px; }
+.carousel .dots { position: absolute; left: 0; right: 0; bottom: 6px; text-align: center; }
+.carousel .dots .dot { width: 8px; height: 8px; border-radius: 50%; border: 0; margin: 0 3px; background: rgba(0,0,0,0.3); display: inline-block; }
+.carousel .dots .dot.active { background: rgba(0,0,0,0.75); }
+
+/* CSS-only autoplay fallback: cycles 0%->33%->66%->100% */
+.carousel.auto .track { animation: carousel-slide 10.5s infinite; }
+@keyframes carousel-slide {
+  0%   { transform: translateX(0%); }
+  30%  { transform: translateX(0%); }
+  33%  { transform: translateX(-100%); }
+  63%  { transform: translateX(-100%); }
+  66%  { transform: translateX(-200%); }
+  97%  { transform: translateX(-200%); }
+  100% { transform: translateX(0%); }
+}
+/* Pause CSS animation on hover for desktop */
+.carousel.auto:hover .track { animation-play-state: paused; }
+
+
+
+/* ===== Single-slide Carousel (strict) — 2025-09-25 ===== */
+#gradcam-carousel .carousel { position: relative; border: 1px solid var(--border); border-radius: 12px; background: var(--card); overflow: hidden; }
+#gradcam-carousel .viewport { width: 100%; overflow: hidden; }
+#gradcam-carousel .track { display: flex; width: 300%; will-change: transform; }
+#gradcam-carousel .slide { flex: 0 0 100%; }
+#gradcam-carousel .slide img { width: 100%; height: auto; display: block; }
+#gradcam-carousel .nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.35); color: #fff; border: 0; width: 28px; height: 28px; border-radius: 999px; cursor: pointer; }
+#gradcam-carousel .nav.prev { left: 8px; }
+#gradcam-carousel .nav.next { right: 8px; }
+#gradcam-carousel .dots { position: absolute; left: 0; right: 0; bottom: 6px; text-align: center; }
+#gradcam-carousel .dots .dot { width: 8px; height: 8px; border-radius: 50%; border: 0; margin: 0 3px; background: rgba(0,0,0,0.3); display: inline-block; }
+#gradcam-carousel .dots .dot.active { background: rgba(0,0,0,0.75); }
+/* CSS-only autoplay (fallback) */
+#gradcam-carousel .carousel.auto .track { animation: gradcam-rotate 10.5s infinite; }
+@keyframes gradcam-rotate {
+  0%, 30%   { transform: translateX(0%); }
+  33%, 63%  { transform: translateX(-100%); }
+  66%, 97%  { transform: translateX(-200%); }
+  100%      { transform: translateX(0%); }
+}
+#gradcam-carousel .carousel.auto:hover .track { animation-play-state: paused; }
+
+
+
+
+/* ---- Grad-CAM carousel ---- */
+.gradcam-carousel { position: relative; width: 100%; max-width: 820px; margin: 0 auto; }
+.gradcam-carousel .carousel-track { position: relative; }
+.gradcam-carousel .carousel-slide { display: none; margin: 0; }
+.gradcam-carousel .carousel-slide.active { display: block; animation: appFade 400ms ease-in; }
+@keyframes appFade { from { opacity: .4 } to { opacity: 1 } }
+.gradcam-carousel img { width: 100%; height: auto; display: block; border-radius: 12px; }
+.gradcam-carousel figcaption { text-align: center; margin-top: .5rem; font-size: .95rem; opacity: .9; }
+
+.gradcam-carousel .carousel-btn { 
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(0,0,0,.35); color: #fff; border: 0; 
+  width: 44px; height: 44px; border-radius: 999px; cursor: pointer;
+  display: grid; place-items: center; font-size: 20px;
+}
+.gradcam-carousel .carousel-btn:hover { background: rgba(0,0,0,.5); }
+.gradcam-carousel .carousel-btn.prev { left: 8px; }
+.gradcam-carousel .carousel-btn.next { right: 8px; }
+
+.gradcam-carousel .carousel-dots { display: flex; gap: .5rem; justify-content: center; margin-top: .75rem; }
+.gradcam-carousel .carousel-dots button {
+  width: 8px; height: 8px; border-radius: 999px; border: 0;
+  background: rgba(0,0,0,.25); cursor: pointer;
+}
+.gradcam-carousel .carousel-dots button.active { background: rgba(0,0,0,.6); }
+@media (prefers-color-scheme: dark) {
+  .gradcam-carousel .carousel-dots button { background: rgba(255,255,255,.25); }
+  .gradcam-carousel .carousel-dots button.active { background: rgba(255,255,255,.7); }
+}
+
+/* ---- Carousel slide animation ---- */
+.gradcam-carousel .carousel-slide { position: relative; }
+.gradcam-carousel .carousel-slide.enter-from-right { animation: appSlideInRight 380ms ease-out; }
+.gradcam-carousel .carousel-slide.enter-from-left { animation: appSlideInLeft 380ms ease-out; }
+@keyframes appSlideInRight { from { transform: translateX(24px); opacity: .0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes appSlideInLeft { from { transform: translateX(-24px); opacity: .0; } to { transform: translateX(0); opacity: 1; } }
+
+
+/* ---- Applications compact two-column layout ---- */
+.app-compact-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+@media (min-width: 1000px){
+  .app-compact-grid{ grid-template-columns: 1fr 1fr; }
+}
+.app-compact-col .app-block{ margin: 0; } /* remove extra outer margins inside grid */
+
+/* ---- Benchmark compact table ---- */
+.app-compact-col .bench-table.dense table{
+  font-size: 0.92rem;
+  line-height: 1.2;
+  table-layout: fixed;
+  width: 100%;
+}
+.app-compact-col .bench-table.dense th,
+.app-compact-col .bench-table.dense td{
+  padding: 4px 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.app-compact-col .bench-table.dense thead th{
+  position: sticky;
+  top: 0;
+}
+.app-compact-col .bench-table.dense .caption{
+  margin-top: .35rem;
+  font-size: .85rem;
+  opacity: .85;
+}
+
+
+/* ---- Applications compact: unequal columns & tighter table ---- */
+.app-compact-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:.9rem;
+  align-items:start;
+}
+@media (min-width: 820px){
+  .app-compact-grid{ grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); }
+}
+.app-compact-col .app-block{ margin:0; }
+.app-compact-col .app-lead{ margin-top:.4rem; margin-bottom:.6rem; }
+
+/* Even denser benchmark table inside compact col */
+.app-compact-col .bench-table.dense table{
+  font-size: 0.86rem;
+  line-height: 1.15;
+  table-layout: fixed;
+  width: 100%;
+}
+.app-compact-col .bench-table.dense thead th{
+  padding: 4px 6px;
+  white-space: normal;        /* allow wrapping in headers */
+  word-break: break-word;
+}
+.app-compact-col .bench-table.dense tbody td{
+  padding: 4px 6px;
+  white-space: nowrap;        /* keep body cells compact */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.app-compact-col .bench-table.dense .caption{
+  margin-top: .3rem;
+  font-size: .82rem;
+  opacity: .85;
+}
+
+/* Ensure long tables don't push layout; allow horizontal scroll if needed */
+.app-compact-col .bench-table.dense{
+  overflow-x: auto;
+}
+
+
+/* --- Application layout fixes --- */
+.app-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items:start;
+}
+.app-card{
+  background: var(--card-bg, rgba(255,255,255,0.04));
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  overflow:auto;
+}
+.app-card table{
+  width:100%;
+  border-collapse: collapse;
+}
+.app-card table th, .app-card table td{
+  text-align:center;
+  padding:8px 10px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  white-space:nowrap;
+}
+.app-media{
+  max-width: 880px;
+  margin: 12px auto 24px auto; /* center align to match carousel */
+}
+.app-media img, .app-media video, .app-media canvas{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+@media (max-width: 980px){
+  .app-grid{ grid-template-columns: 1fr; }
+}
+
+
+/* === Auto overrides: make first application full-width + center its table === */
+#applications .app-full { grid-column: 1 / -1; }
+#applications .app-full .table-wrap.centered table { margin-left:auto; margin-right:auto; }
+#applications .app-full .table-wrap.centered { display:block; }
+
+
+/* === Auto overrides (2025-09-25): center table content + adjust Applications tables width === */
+/* 1) Center all table headers/cells across the site */
+table th, table td { text-align: center !important; vertical-align: middle; }
+
+/* 2) Applications: make the two tables a bit narrower but centered */
+#applications .bench-table,
+#applications .fvd-table {
+  width: 88%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Ensure the inner table follows the wrapper width */
+#applications .bench-table table,
+#applications .fvd-table table {
+  width: 100% !important;
+}
+
+/* Responsive: on narrow viewports, let them be full width */
+@media (max-width: 900px) {
+  #applications .bench-table,
+  #applications .fvd-table { width: 100%; }
+}
+
+
+/* === Patch: left-align ONLY the first column in all tables (keep others unchanged) === */
+table tr > th:first-child, 
+table tr > td:first-child {
+  text-align: left !important;
+}
+
+/* === Patch: gradcam-static mirrors gradcam-carousel layout width === */
+
+/* Fallback width wrapper matching carousel container footprint */
+.gradcam-static {
+  width: 80%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  display: block;
+}
+
+
+/* Center the single-row group dividers in dataset tables */
+table tr.group > td {
+  text-align: center !important;
+}
+
+
+/* Nav logos sizing and spacing */
+.nav-logo-left,
+.nav-logo-right {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+
+
+/* --- Fine-tune nav logos placement --- */
+.nav-inner { gap: 12px; } /* slightly tighter overall */
+.nav-logo-left {
+  height: 26px;
+  width: auto;
+  display: block;
+  margin-right: 0px;      /* closer to 'L3DE' */
+  margin-left: -100px;      /* nudge further to the left edge */
+}
+/* keep left-side brand close to logo */
+.nav .brand { margin-left: -400px;  margin-right: 2px; }
+
+/* Right HKU logo placed within .links as last item */
+.nav-logo-right {
+  height: 22px;
+  width: auto;
+  display: block;
+  margin-left: 10px;
+  opacity: 1;
+}
+/* Ensure links container can host the logo nicely */
+.nav .links { display:flex; align-items:center; gap: 16px; }
+
+
+/* --- Responsive nav: fluid sizes, no hardcoded px that break on mobile --- */
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(8px, 2vw, 16px);
+  padding-block: clamp(10px, 1.8vw, 14px);
+}
+.nav .brand { 
+  font-size: clamp(18px, 3.2vw, 24px);
+  line-height: 1.1;
+  margin-right: 0.2em;
+}
+.nav .links {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 18px);
+  flex-wrap: wrap;            /* allow wrapping on small screens */
+  row-gap: 8px;
+}
+/* Logos scale fluidly */
+.nav-logo-left,
+.nav-logo-right {
+  height: clamp(18px, 3vw, 26px);
+  width: auto;
+}
+/* Buttons adapt spacing with font-relative units */
+.btn {
+  padding: .5em .9em;
+  font-size: clamp(13px, 2.6vw, 14.5px);
+  line-height: 1.1;
+  display: inline-flex;
+  align-items: center;
+  gap: .4em;
+}
+.btn .icon { display:inline-block; }
+@media (max-width: 640px) {
+  /* Slightly tighter layout on very small screens */
+  .nav .links { gap: 10px; }
+}
